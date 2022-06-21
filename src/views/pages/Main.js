@@ -15,22 +15,31 @@ const Main = () => {
             element={<route.element />}
           />
         ))}
-        {adminRoutes?.map((route, key) => (
-          <Route
-            key={key.toString()}
-            path={route.path}
-            element={<route.element />}
-          >
-            {route.routes &&
-              route.routes.map((subRoute, i) => (
-                <Route
-                  key={i}
-                  path={subRoute.path}
-                  element={<subRoute.element />}
-                />
-              ))}
-          </Route>
-        ))}
+        {adminRoutes?.map((route, key) =>
+          route.children ? (
+            <Route key={key.toString()} path={route.path}>
+              {route.children &&
+                route.children.map((subRoute, i) =>
+                  subRoute.path === "/" ? (
+                    <Route
+                      key={i}
+                      index={true}
+                      element={<subRoute.element />}
+                    />
+                  ) : (
+                    <Route
+                      key={i}
+                      index={false}
+                      path={subRoute.path}
+                      element={<subRoute.element />}
+                    />
+                  )
+                )}
+            </Route>
+          ) : (
+            ""
+          )
+        )}
       </Routes>
     </div>
   );

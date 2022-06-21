@@ -1,6 +1,6 @@
 const TeacherItem = () => {
   return (
-    <div className="border p-2 flex justify-between items-center rounded hover:bg-slate-100 transition duration-100">
+    <div className="border p-2 flex justify-between items-center rounded hover:bg-slate-100 hover:-translate-y-1 transition duration-300">
       <div className="flex gap-3 items-center">
         <div>
           <img
@@ -15,7 +15,7 @@ const TeacherItem = () => {
         </div>
       </div>
       <div>
-        <button className="capitalize bg-blue-700 text-white px-3 py-2">
+        <button className="capitalize bg-blue-700 text-white px-4 py-1 rounded">
           view
         </button>
       </div>

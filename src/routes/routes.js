@@ -1,4 +1,8 @@
+// admin routes
+import AdminDashboard from "../views/pages/admin/dashboard/AdminDashboard";
 import Teachers from "../views/pages/admin/teacher/Teachers";
+
+// public routes
 import Home from "../views/pages/home/Home";
 import Login from "../views/pages/login/Login";
 import Signup from "../views/pages/signup/Signup";
@@ -21,9 +25,12 @@ export const routes = [
   },
   {
     path: "/admin",
-    element: Teachers,
     role: ["admin"],
-    routes: [
+    children: [
+      {
+        path: "/",
+        element: AdminDashboard,
+      },
       {
         path: "teachers",
         element: Teachers,

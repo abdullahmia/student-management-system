@@ -1,4 +1,9 @@
+import { Navigate } from "react-router-dom";
+
 const Header = () => {
+  const logout = () => {
+    <Navigate to={"/login"} />;
+  };
   return (
     <div className="fixed bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">
       <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 border-none">
@@ -15,7 +20,10 @@ const Header = () => {
             <div className="block w-px h-6 mx-3 bg-gray-400"></div>
           </li>
           <li>
-            <button className="flex items-center mr-4 hover:text-gray-700 transition">
+            <button
+              onClick={logout}
+              className="flex items-center mr-4 hover:text-gray-700 transition"
+            >
               <span className="inline-flex mr-1">
                 <svg
                   className="w-5 h-5 hover:text-gray-800"

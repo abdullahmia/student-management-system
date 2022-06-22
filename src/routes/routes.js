@@ -1,11 +1,20 @@
-// admin routes
-import AdminDashboard from "../views/pages/admin/dashboard/AdminDashboard";
-import Teachers from "../views/pages/admin/teacher/Teachers";
+import React from "react";
 
 // public routes
-import Home from "../views/pages/home/Home";
-import Login from "../views/pages/login/Login";
-import Signup from "../views/pages/signup/Signup";
+const Home = React.lazy(() => import("../views/pages/home/Home"));
+const Login = React.lazy(() => import("../views/pages/login/Login"));
+const Signup = React.lazy(() => import("../views/pages/signup/Signup"));
+
+// admin routes
+const AdminDashboard = React.lazy(() =>
+  import("../views/pages/admin/dashboard/AdminDashboard")
+);
+const Teachers = React.lazy(() =>
+  import("../views/pages/admin/teacher/Teachers")
+);
+
+// auth routes
+const Profile = React.lazy(() => import("../views/pages/profile/Profile"));
 
 export const routes = [
   {
@@ -36,5 +45,10 @@ export const routes = [
         element: Teachers,
       },
     ],
+  },
+  {
+    path: "/profile",
+    element: Profile,
+    role: ["user"],
   },
 ];

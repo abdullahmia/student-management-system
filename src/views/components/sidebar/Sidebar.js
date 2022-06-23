@@ -4,13 +4,13 @@ import AdminSidebar from "./AdminSidebar";
 
 const Sidebar = () => {
   return (
-    <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 text-gray-900 h-full transition-all duration-300 border-none z-10 bg-slate-100">
+    <div className="fixed flex flex-col top-14 left-0 w-14 hover:w-64 md:w-64 text-white h-full transition-all duration-300 border-none z-10 bg-gray-600">
       <div className="overflow-y-auto overflow-x-hidden flex flex-col justify-between flex-grow">
         <ul className="flex flex-col py-4 space-y-1">
           <AdminSidebar />
           <li className="px-5 hidden md:block">
             <div className="flex flex-row items-center h-8">
-              <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
+              <div className="text-sm font-light tracking-wide text-gray-300 uppercase">
                 Profile
               </div>
             </div>
@@ -20,8 +20,8 @@ const Sidebar = () => {
               to="/profile"
               className={(navInfo) =>
                 navInfo.isActive
-                  ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300 bg-white"
-                  : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300"
+                  ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300 bg-gray-500"
+                  : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
               }
               end={true}
             >

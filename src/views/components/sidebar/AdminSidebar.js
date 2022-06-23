@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 // for admin sidebars
+import { BiBookBookmark } from "react-icons/bi";
 import { FaList } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 
@@ -8,7 +9,7 @@ const AdminSidebar = () => {
     <ul className="flex flex-col py-4 space-y-1">
       <li className="px-5 hidden md:block">
         <div className="flex flex-row items-center h-8">
-          <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
+          <div className="text-sm font-light tracking-wide text-gray-300 uppercase">
             Main
           </div>
         </div>
@@ -18,8 +19,8 @@ const AdminSidebar = () => {
           to="/admin"
           className={(navInfo) =>
             navInfo.isActive
-              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300 bg-white"
-              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300"
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300 bg-gray-500"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
           }
           end={true}
         >
@@ -56,8 +57,8 @@ const AdminSidebar = () => {
           to="/admin/department"
           className={(navInfo) =>
             navInfo.isActive
-              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300 bg-white"
-              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300"
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500transition duration-300 bg-gray-500"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
           }
           end={true}
         >
@@ -67,6 +68,23 @@ const AdminSidebar = () => {
           <span className="ml-2 text-sm tracking-wide truncate">
             Department
           </span>
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/admin/subjects"
+          className={(navInfo) =>
+            navInfo.isActive
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300 bg-gray-500"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
+          }
+          end={true}
+        >
+          <span className="inline-flex justify-center items-center ml-4">
+            <BiBookBookmark />
+          </span>
+          <span className="ml-2 text-sm tracking-wide truncate">Subjects</span>
         </NavLink>
       </li>
 
@@ -84,8 +102,8 @@ const AdminSidebar = () => {
           end={true}
           className={(navInfo) =>
             navInfo.isActive
-              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300 bg-white"
-              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300"
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300 bg-gray-500"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
           }
         >
           <span className="inline-flex justify-center items-center ml-4">

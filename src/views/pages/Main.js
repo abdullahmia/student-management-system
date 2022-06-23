@@ -1,14 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import TopBarProgress from "react-topbar-progress-indicator";
 import { routes } from "../../routes/routes";
-
-TopBarProgress.config({
-  barColors: {
-    0: "#fff",
-    "1.0": "#fff",
-  },
-  shadowBlur: 5,
-});
 
 const Main = () => {
   const adminRoutes = routes.filter((route) => route.role.includes("admin"));

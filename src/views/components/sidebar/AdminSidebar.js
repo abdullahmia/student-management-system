@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 // for admin sidebars
+import { FaList } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 
 const AdminSidebar = () => {
@@ -39,6 +40,33 @@ const AdminSidebar = () => {
             </svg>
           </span>
           <span className="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+        </NavLink>
+      </li>
+
+      <li className="px-5 hidden md:block">
+        <div className="flex flex-row items-center h-8">
+          <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
+            Academic
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <NavLink
+          to="/admin/department"
+          className={(navInfo) =>
+            navInfo.isActive
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300 bg-white"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-white transition duration-300"
+          }
+          end={true}
+        >
+          <span className="inline-flex justify-center items-center ml-4">
+            <FaList />
+          </span>
+          <span className="ml-2 text-sm tracking-wide truncate">
+            Department
+          </span>
         </NavLink>
       </li>
 

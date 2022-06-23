@@ -5,6 +5,7 @@ import Signup from "../views/pages/signup/Signup";
 
 // admin routes
 import AdminDashboard from "../views/pages/admin/dashboard/AdminDashboard";
+import Department from "../views/pages/admin/department/Department";
 import Teachers from "../views/pages/admin/teacher/Teachers";
 
 // auth routes
@@ -37,6 +38,10 @@ export const routes = [
       {
         path: "teachers",
         element: Teachers,
+      },
+      {
+        path: "department",
+        element: Department,
       },
     ],
   },

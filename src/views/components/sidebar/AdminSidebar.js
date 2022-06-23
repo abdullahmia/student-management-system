@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 // for admin sidebars
 import { BiBookBookmark } from "react-icons/bi";
-import { FaList } from "react-icons/fa";
+import { FaList, FaUserGraduate } from "react-icons/fa";
 import { GiTeacher } from "react-icons/gi";
 
 const AdminSidebar = () => {
@@ -88,14 +88,6 @@ const AdminSidebar = () => {
         </NavLink>
       </li>
 
-      <li className="px-5 hidden md:block">
-        <div className="flex flex-row items-center mt-5 h-8">
-          <div className="text-sm font-light tracking-wide text-gray-400 uppercase">
-            Teachers
-          </div>
-        </div>
-      </li>
-
       <li>
         <NavLink
           to="/admin/teachers"
@@ -110,6 +102,23 @@ const AdminSidebar = () => {
             <GiTeacher />
           </span>
           <span className="ml-2 text-sm tracking-wide truncate">Teachers</span>
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          to="/admin/students"
+          end={true}
+          className={(navInfo) =>
+            navInfo.isActive
+              ? "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300 bg-gray-500"
+              : "relative flex flex-row items-center h-11 focus:outline-none text-white-600 hover:text-white-800 border-l-4 border-transparent pr-6 hover:bg-gray-500 transition duration-300"
+          }
+        >
+          <span className="inline-flex justify-center items-center ml-4">
+            <FaUserGraduate />
+          </span>
+          <span className="ml-2 text-sm tracking-wide truncate">Students</span>
         </NavLink>
       </li>
     </ul>

@@ -1,22 +1,31 @@
 import { useState } from "react";
 import { BiMessageSquareAdd } from "react-icons/bi";
-import AddSubjectForm from "../../../components/forms/AddSubjectForm";
-import SubjectItem from "../../../components/subjectItem/SubjectItem";
+import AddStudentForm from "../../../components/forms/AddStudentForm";
+import StudentTable from "../../../components/studentTable/StudentTable";
 import DashboardLayout from "../../layout/DashboardLayout";
 
-const Subjects = () => {
+const Students = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   return (
-    <DashboardLayout title={"Subject | Academic"}>
+    <DashboardLayout title={"Student | Academic"}>
       <div className="p-4 bg-white">
-        <h2 className="text-lg font-semibold text-gray-600 capitalize">
-          subjects
-        </h2>
+        <h2 className="text-lg font-semibold">Student</h2>
+
         <div className="flex items-center justify-between mt-5">
           <div className="w-9/12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div className="flex gap-5">
               <div>
-                <select className="border py-2 w-full focus:outline-none focus:border focus:border-blue-500">
+                <input
+                  type="number"
+                  name="roll"
+                  id="roll"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                  placeholder="1500955039"
+                  required
+                />
+              </div>
+              <div>
+                <select className="border py-2 px-2 w-full focus:outline-none focus:border focus:border-blue-500">
                   <option value="1">1st</option>
                   <option value="2">2nd</option>
                   <option value="3">3rd</option>
@@ -28,7 +37,7 @@ const Subjects = () => {
                 </select>
               </div>
               <div>
-                <select className="border w-full py-2 focus:outline-none focus:border focus:border-blue-500">
+                <select className="border w-full px-2 py-2 focus:outline-none focus:border focus:border-blue-500">
                   <option value="computer">Computer</option>
                   <option value="civil">Civil</option>
                   <option value="civil">Electrical</option>
@@ -49,27 +58,21 @@ const Subjects = () => {
               className="bg-orange-500 py-2 px-5 rounded-sm text-white flex items-center justify-center gap-2 hover:bg-orange-400 transition duration-200"
             >
               <BiMessageSquareAdd />
-              Add Subject
+              Add Student
             </button>
-            <AddSubjectForm
+            <AddStudentForm
+              type={"student"}
               isFormOpen={isFormOpen}
               setIsFormOpen={setIsFormOpen}
             />
           </div>
         </div>
-
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <SubjectItem />
-          <SubjectItem />
-          <SubjectItem />
-          <SubjectItem />
-          <SubjectItem />
-          <SubjectItem />
-          <SubjectItem />
+        <div className="mt-5">
+          <StudentTable />
         </div>
       </div>
     </DashboardLayout>
   );
 };
 
-export default Subjects;
+export default Students;

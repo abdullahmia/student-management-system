@@ -6,6 +6,7 @@ import Signup from "../views/pages/signup/Signup";
 // admin routes
 import AdminDashboard from "../views/pages/admin/dashboard/AdminDashboard";
 import Department from "../views/pages/admin/department/Department";
+import Students from "../views/pages/admin/student/Students";
 import Subjects from "../views/pages/admin/subject/Subjects";
 import Teachers from "../views/pages/admin/teacher/Teachers";
 
@@ -47,6 +48,10 @@ export const routes = [
       {
         path: "subjects",
         element: Subjects,
+      },
+      {
+        path: "students",
+        element: Students,
       },
     ],
   },

@@ -11,6 +11,7 @@ import Subjects from "../views/pages/admin/subject/Subjects";
 import Teachers from "../views/pages/admin/teacher/Teachers";
 
 // auth routes
+import Notice from "../views/pages/notice/Notice";
 import Profile from "../views/pages/profile/Profile";
 
 export const routes = [
@@ -58,6 +59,11 @@ export const routes = [
   {
     path: "/profile",
     element: Profile,
+    role: ["user"],
+  },
+  {
+    path: "/notice",
+    element: Notice,
     role: ["user"],
   },
 ];

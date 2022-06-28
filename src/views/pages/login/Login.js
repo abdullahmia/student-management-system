@@ -1,8 +1,31 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
+import { useLoginMutation } from "../../../redux/services/authService";
 import Layout from "../layout/Layout";
 
 const Login = () => {
+  const [message, setMessage] = useState("");
+  const { register, handleSubmit, reset } = useForm();
+
+  const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  // login form submit
+  const loginFormSubmit = async (data) => {
+    await login(data).then((data) => {
+      if (data.data) {
+        localStorage.setItem("user", JSON.stringify({ ...data.data.data }));
+        localStorage.setItem("token", data.data.token);
+        navigate("/admin");
+      } else {
+        setMessage(data.error.data.message);
+      }
+    });
+    reset();
+  };
   return (
     <Layout title={"Login"}>
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-300">
@@ -18,8 +41,13 @@ const Login = () => {
               </span>
             </div>
           </div>
+          {message && (
+            <div className="bg-red-400 mt-6 text-white p-4 rounded-md">
+              <h3>Invalid Email or password</h3>
+            </div>
+          )}
           <div className="mt-10">
-            <form action="#">
+            <form onSubmit={handleSubmit(loginFormSubmit)}>
               <div className="flex flex-col mb-6">
                 <label
                   htmlFor="email"
@@ -46,6 +74,7 @@ const Login = () => {
                     id="email"
                     type="email"
                     name="email"
+                    {...register("email")}
                     className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                     placeholder="E-Mail Address"
                   />
@@ -79,6 +108,7 @@ const Login = () => {
                     id="password"
                     type="password"
                     name="password"
+                    {...register("password")}
                     className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
                     placeholder="Password"
                   />
@@ -101,7 +131,9 @@ const Login = () => {
                   type="submit"
                   className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in"
                 >
-                  <span className="mr-2 uppercase">Login</span>
+                  <span className="mr-2 uppercase">
+                    {isLoading ? "Loading" : "Login"}
+                  </span>
                   <span>
                     <svg
                       className="h-6 w-6"

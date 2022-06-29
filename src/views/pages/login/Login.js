@@ -19,12 +19,12 @@ const Login = () => {
       if (data.data) {
         localStorage.setItem("user", JSON.stringify({ ...data.data.data }));
         localStorage.setItem("token", data.data.token);
+        reset();
         navigate("/admin");
       } else {
         setMessage(data.error.data.message);
       }
     });
-    reset();
   };
   return (
     <Layout title={"Login"}>
@@ -43,7 +43,7 @@ const Login = () => {
           </div>
           {message && (
             <div className="bg-red-400 mt-6 text-white p-4 rounded-md">
-              <h3>Invalid Email or password</h3>
+              <h3>{message}</h3>
             </div>
           )}
           <div className="mt-10">

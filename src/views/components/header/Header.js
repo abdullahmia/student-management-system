@@ -1,8 +1,11 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const logout = () => {
-    <Navigate to={"/login"} />;
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/login");
   };
   return (
     <div className="fixed bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">

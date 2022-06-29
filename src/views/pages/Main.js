@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AdminRoutes from "../../routes/AdminRoutes";
 import { routes } from "../../routes/routes";
 
 const Main = () => {
@@ -29,14 +30,22 @@ const Main = () => {
                     <Route
                       key={i}
                       index={true}
-                      element={<subRoute.element />}
+                      element={
+                        <AdminRoutes>
+                          <subRoute.element />
+                        </AdminRoutes>
+                      }
                     />
                   ) : (
                     <Route
                       key={i}
                       index={false}
                       path={subRoute.path}
-                      element={<subRoute.element />}
+                      element={
+                        <AdminRoutes>
+                          <subRoute.element />
+                        </AdminRoutes>
+                      }
                     />
                   )
                 )}

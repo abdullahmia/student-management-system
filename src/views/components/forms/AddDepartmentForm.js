@@ -1,14 +1,42 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef } from "react";
+import cogoToast from "cogo-toast";
+import { Fragment, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { BiLoaderAlt } from "react-icons/bi";
+import { useAddDepartmentMutation } from "../../../redux/services/deapartmentService";
 
 export default function AddDepartmentForm({ isFormOpen, setIsFormOpen }) {
+  const [message, setMessage] = useState("");
   const cancelButtonRef = useRef(null);
   const { register, handleSubmit, reset } = useForm();
 
+  const [addDepartment, { isLoading }] = useAddDepartmentMutation();
+
   // add user form submit
   const addUserFormSubmit = async (data) => {
-    reset();
+    if (data.image.length > 0) {
+      const formData = new FormData();
+      formData.append("semester", data.semester);
+      formData.append("name", data.name);
+      formData.append("image", data.image[0]);
+
+      await addDepartment(formData).then((result) => {
+        if (result.data) {
+          if (!result.data.error) {
+            cogoToast.success(result.data.message);
+            reset();
+            setIsFormOpen(!isFormOpen);
+          }
+        }
+        if (result.error) {
+          if (result.error.data.error) {
+            cogoToast.error(result.error.data.message);
+          }
+        }
+      });
+    } else {
+      setMessage("Please provide an image");
+    }
   };
   return (
     <Transition.Root show={isFormOpen} as={Fragment}>
@@ -81,11 +109,40 @@ export default function AddDepartmentForm({ isFormOpen, setIsFormOpen }) {
                     <h3 className="mb-4 text-xl font-medium text-gray-900">
                       Add a new Department
                     </h3>
+
+                    {message && (
+                      <div className="bg-red-400 my-6 text-white p-4 rounded-md">
+                        <h3>{message}</h3>
+                      </div>
+                    )}
+
                     <form
                       onSubmit={handleSubmit(addUserFormSubmit)}
                       className="space-y-6"
                       action="#"
                     >
+                      <div>
+                        <label
+                          htmlFor="dname"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Semester
+                        </label>
+                        <select
+                          {...register("semester")}
+                          className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          aria-label="Default select example"
+                        >
+                          <option value="1">1st</option>
+                          <option value="2">2nd</option>
+                          <option value="3">3rd</option>
+                          <option value="4">4th</option>
+                          <option value="5">5th</option>
+                          <option value="6">6th</option>
+                          <option value="7">7th</option>
+                          <option value="8">8th</option>
+                        </select>
+                      </div>
                       <div>
                         <label
                           htmlFor="dname"
@@ -137,6 +194,7 @@ export default function AddDepartmentForm({ isFormOpen, setIsFormOpen }) {
                           <input
                             id="dropzone-file"
                             type="file"
+                            {...register("image")}
                             class="hidden"
                           />
                         </label>
@@ -146,7 +204,11 @@ export default function AddDepartmentForm({ isFormOpen, setIsFormOpen }) {
                         type="submit"
                         className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center uppercase"
                       >
-                        add
+                        {isLoading ? (
+                          <BiLoaderAlt className="inline w-4 h-4 mr-3 text-white animate-spin" />
+                        ) : (
+                          "Add"
+                        )}
                       </button>
                     </form>
                   </div>

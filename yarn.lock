@@ -3056,6 +3056,11 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+cogo-toast@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/cogo-toast/-/cogo-toast-4.2.3.tgz#5f91ce8e55c799f74d5e9ba1e39081b148b07f43"
+  integrity sha512-Lp/lPk493MLtkgqHboVJXb5frvLJqUDpIqLh6uCMcNecw0/shikDG+DGsjvmPe5qmorRwxe+6JgfKobRrcvhZQ==
+
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz#cc2c8e94fc18bbdffe64d6534570c8a673b27f59"
@@ -8267,6 +8272,11 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+sweetalert2@^11.4.19:
+  version "11.4.19"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.19.tgz#b30f30035ba9479be46be5e296ce14b621896c9d"
+  integrity sha512-N3GA2M/K6PFzLprKWENioL0ckXPHLiWwvMMAJSfGgxB+aptzQrElv6D+j3D++K9yXSjpTs3XqJHYUQpEUzpv/g==
 
 symbol-tree@^3.2.4:
   version "3.2.4"

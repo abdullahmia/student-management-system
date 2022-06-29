@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Image from "../common/Image";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -7,15 +9,18 @@ const Header = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <div className="fixed bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">
       <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 border-none">
-        <img
-          className="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
-          src="https://therminic2018.eu/wp-content/uploads/2018/07/dummy-avatar.jpg"
-          alt="ProfileImage"
+        <Image
+          src={user?.image}
+          classname="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
         />
-        <span className="hidden md:block">ADMIN</span>
+        <span className="hidden md:block">
+          {user?.firstName} {user?.lastName}
+        </span>
       </div>
       <div className="flex justify-between items-center h-14 header-right">
         <ul className="flex items-center">

@@ -8,7 +8,6 @@ const AdminRoutes = ({ children }) => {
   if (token) {
     token = token.split(" ")[1].trim();
     decodedToken = jwt_decode(token);
-    console.log(decodedToken);
     let currentDate = new Date();
     // JWT exp is in seconds
     if (decodedToken.exp * 1000 < currentDate.getTime()) {

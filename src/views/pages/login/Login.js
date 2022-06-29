@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
@@ -8,8 +8,14 @@ import Layout from "../layout/Layout";
 const Login = () => {
   const [message, setMessage] = useState("");
   const { register, handleSubmit, reset } = useForm();
-
   const navigate = useNavigate();
+
+  let token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      navigate("/admin");
+    }
+  }, [token, navigate]);
 
   const [login, { isLoading }] = useLoginMutation();
 

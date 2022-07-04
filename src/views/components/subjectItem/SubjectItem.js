@@ -9,7 +9,6 @@ const SubjectItem = ({ subject }) => {
   // subject delete func
   const subjectDeleteFunc = async (id) => {
     await deleteSubject(id).then((result) => {
-      // console.log(result.data.error);
       if (!result?.data?.error) {
         cogoToast.success(result?.data?.message);
       }
@@ -17,10 +16,7 @@ const SubjectItem = ({ subject }) => {
   };
   return (
     <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md">
-      <Image
-        src={subject?.image}
-        classname="w-full h-72 object-contain rounded-t-lg"
-      />
+      <Image src={subject?.image} classname="w-full h-72 p-6 object-contain" />
 
       <div className="p-5">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">

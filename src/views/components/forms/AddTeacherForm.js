@@ -1,16 +1,30 @@
 import { Dialog, Transition } from "@headlessui/react";
+import cogoToast from "cogo-toast";
 import { Fragment, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { BiLoaderAlt } from "react-icons/bi";
+import { useCreateUserMutation } from "../../../redux/services/authService";
 
 export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
   const cancelButtonRef = useRef(null);
   const { register, handleSubmit, reset } = useForm();
 
+  // create user mution
+  const [createUser, { isLoading }] = useCreateUserMutation();
+
   // add user form submit
   const addUserFormSubmit = async (data) => {
-    let type = "teacher";
-    console.log(data, type);
-    reset();
+    let role = "teacher";
+    data = { ...data, role };
+    await createUser(data).then((result) => {
+      if (result.data) {
+        cogoToast.success(result.data.message);
+        reset();
+        setIsFormOpen(!isFormOpen);
+      } else if (result.error) {
+        cogoToast.error(result.error.data.message);
+      }
+    });
   };
   return (
     <Transition.Root show={isFormOpen} as={Fragment}>
@@ -116,7 +130,7 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
                           type="text"
                           name="lname"
                           id="lname"
-                          {...register("lasstName")}
+                          {...register("lastName")}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
                           placeholder="Doe"
                           required
@@ -144,7 +158,11 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
                         type="submit"
                         className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center uppercase"
                       >
-                        add
+                        {isLoading ? (
+                          <BiLoaderAlt className="inline w-4 h-4 mr-3 text-white animate-spin" />
+                        ) : (
+                          "Add"
+                        )}
                       </button>
                     </form>
                   </div>

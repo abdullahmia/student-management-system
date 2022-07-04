@@ -5,6 +5,10 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_URL,
+    prepareHeaders: (header) => {
+      header.set("Authorization", localStorage.getItem("token") || null);
+      return header;
+    },
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -13,13 +17,20 @@ export const authApi = createApi({
           url: `/auth/login`,
           method: "POST",
           body: content,
-          headers: {
-            // header will be go here...
-          },
+        };
+      },
+    }),
+    // create a user by admin
+    createUser: builder.mutation({
+      query: (content) => {
+        return {
+          url: `auth/create-user`,
+          method: "POST",
+          body: content,
         };
       },
     }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useCreateUserMutation } = authApi;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BiFilterAlt, BiMessageSquareAdd } from "react-icons/bi";
-import UserForm from "../../../components/forms/UserForm";
+import UserForm from "../../../components/forms/AddTeacherForm";
 import TeacherItem from "../../../components/teacherItem/TeacherItem";
 import DashboardLayout from "../../layout/DashboardLayout";
 

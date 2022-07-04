@@ -19,7 +19,7 @@ const DepartmentItem = ({ department }) => {
   return (
     <div className="flex gap-5 border p-5">
       <div className="flex-none w-48 relative">
-        <Image src={department?.image} classname="w-full" />
+        <Image src={department?.image} classname="w-full h-32 rounded-lg" />
       </div>
       <div>
         <h2 className="text-lg font-semibold text-gray-600">

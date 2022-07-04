@@ -12,7 +12,7 @@ const Header = () => {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <div className="fixed bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">
+    <div className="fixed shadow-md bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">
       <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-14 border-none">
         <Image
           src={user?.image}

@@ -10,6 +10,10 @@ import Students from "../views/pages/admin/student/Students";
 import Subjects from "../views/pages/admin/subject/Subjects";
 import Teachers from "../views/pages/admin/teacher/Teachers";
 
+// teacher routes
+import TeacherProfile from "../views/pages/profile/TeacherProfile";
+import TeacherDashboard from "../views/pages/teacher/TeacherDashboard";
+
 // auth routes
 import Notice from "../views/pages/notice/Notice";
 import Profile from "../views/pages/profile/Profile";
@@ -53,6 +57,21 @@ export const routes = [
       {
         path: "students",
         element: Students,
+      },
+    ],
+  },
+  {
+    path: "/teacher",
+    role: ["teacher"],
+    element: TeacherDashboard,
+    children: [
+      {
+        path: "/",
+        element: TeacherDashboard,
+      },
+      {
+        path: "profile",
+        element: TeacherProfile,
       },
     ],
   },

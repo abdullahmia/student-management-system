@@ -10,6 +10,7 @@ export const authApi = createApi({
       return header;
     },
   }),
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (content) => {
@@ -29,8 +30,42 @@ export const authApi = createApi({
           body: content,
         };
       },
+      invalidatesTags: ["User"],
+    }),
+    // get users by role
+    getUserByRole: builder.query({
+      query: (role) => `/auth/users/${role}`,
+      providesTags: ["User"],
+    }),
+
+    // delete a user by id and role
+    deleteUserByRoleAndId: builder.mutation({
+      query: ({ role, id }) => {
+        return {
+          url: `/auth/user/${role}/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["User"],
+    }),
+
+    // password change
+    changePassword: builder.mutation({
+      query: (content) => {
+        return {
+          url: `/auth/password-change`,
+          method: "PATCH",
+          body: content,
+        };
+      },
     }),
   }),
 });
 
-export const { useLoginMutation, useCreateUserMutation } = authApi;
+export const {
+  useLoginMutation,
+  useCreateUserMutation,
+  useGetUserByRoleQuery,
+  useDeleteUserByRoleAndIdMutation,
+  useChangePasswordMutation,
+} = authApi;

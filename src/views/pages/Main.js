@@ -6,6 +6,9 @@ const Main = () => {
   const adminRoutes = routes.filter((route) => route.role.includes("admin"));
   const publicRoutes = routes.filter((route) => route.role.includes("*"));
   const authUserRoutes = routes.filter((route) => route.role.includes("user"));
+  const teacherRoutes = routes.filter((route) =>
+    route.role.includes("teacher")
+  );
 
   return (
     <div>
@@ -21,6 +24,7 @@ const Main = () => {
         {authUserRoutes.map((route, key) => (
           <Route key={key} path={route.path} element={<route.element />} />
         ))}
+        {/* admin routes */}
         {adminRoutes?.map((route, key) =>
           route.children ? (
             <Route key={key.toString()} path={route.path}>
@@ -54,6 +58,37 @@ const Main = () => {
             ""
           )
         )}
+
+        {teacherRoutes?.map((route, key) =>
+          route.children ? (
+            <Route key={key.toString()} path={route.path}>
+              {route.children &&
+                route.children.map((subRoute, i) =>
+                  subRoute.path === "/" ? (
+                    <Route
+                      key={i}
+                      index={true}
+                      element={<subRoute.element />}
+                    />
+                  ) : (
+                    <Route
+                      key={i}
+                      index={false}
+                      path={subRoute.path}
+                      element={<subRoute.element />}
+                    />
+                  )
+                )}
+            </Route>
+          ) : (
+            ""
+          )
+        )}
+
+        {/* teacher routes */}
+        {/* {teacherRoutes.map((route, key) => (
+          <Route path={route.path} element={<route.element />} />
+        ))} */}
       </Routes>
     </div>
   );

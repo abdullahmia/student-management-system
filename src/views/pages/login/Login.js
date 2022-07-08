@@ -14,7 +14,7 @@ const Login = () => {
   let token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
-      navigate("/admin");
+      navigate("/");
     }
   }, [token, navigate]);
 
@@ -27,7 +27,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify({ ...data.data.data }));
         localStorage.setItem("token", data.data.token);
         reset();
-        navigate("/admin");
+        navigate("/");
       } else {
         setMessage(data.error.data.message);
       }

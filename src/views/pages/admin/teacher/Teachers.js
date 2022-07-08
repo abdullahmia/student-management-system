@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { BiFilterAlt, BiMessageSquareAdd } from "react-icons/bi";
+import { useGetUserByRoleQuery } from "../../../../redux/services/authService";
 import UserForm from "../../../components/forms/AddTeacherForm";
+import Loader from "../../../components/loader/Loader";
 import TeacherItem from "../../../components/teacherItem/TeacherItem";
 import DashboardLayout from "../../layout/DashboardLayout";
 
 const Teachers = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const { data: teachers, isLoading } = useGetUserByRoleQuery("teacher");
 
   return (
     <DashboardLayout title={"Teachers | Dashbaord"}>
@@ -30,49 +33,33 @@ const Teachers = () => {
           </div>
         </div>
 
-        {/* Teacher filtering */}
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <input
-            type="text"
-            placeholder="Search by teacher name"
-            className="w-full border px-3 py-1.5 focus:border-blue-600 focus:outline-none rounded"
-          />
-          <select
-            defaultValue={"DEFAULT"}
-            className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-white bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            aria-label="Default select example"
-          >
-            <option value="DEFAULT" disabled>
-              Choose a department ...
-            </option>
-            <option value="1">Computer</option>
-            <option value="2">Electrical</option>
-            <option value="3">Civil</option>
-            <option value="3">Medical</option>
-          </select>
-          <button className="bg-blue-700 py-2 text-white flex items-center justify-center gap-2 hover:bg-blue-800 transition duration-200">
-            <BiFilterAlt />
-            <span>Filter</span>
-          </button>
-        </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="mt-5 flex flex-nowrap gap-4">
+              <input
+                type="text"
+                placeholder="Search by teacher name"
+                className="w-full border px-3 py-1.5 focus:border-blue-600 focus:outline-none rounded"
+              />
 
-        {/* Teachers items */}
-        <div className="text-gray-400 flex justify-between items-center pt-6">
-          <h2>Search by department & name</h2>
-          <h2>search result 12</h2>
-        </div>
-        <div className="mt-4 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-          <TeacherItem />
-        </div>
+              <button className="bg-blue-700 py-2 px-4 text-white flex items-center justify-center gap-2 hover:bg-blue-800 transition duration-200">
+                <BiFilterAlt />
+                <span>Filter</span>
+              </button>
+            </div>
+
+            {/* Teachers items */}
+            <div className="mt-4 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
+              {teachers?.data.map((teacher, key) => (
+                <TeacherItem teacher={teacher} />
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* Teacher filtering */}
       </div>
     </DashboardLayout>
   );

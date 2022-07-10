@@ -59,6 +59,28 @@ export const authApi = createApi({
         };
       },
     }),
+
+    // forgot password
+    forgotPassword: builder.mutation({
+      query: (content) => {
+        return {
+          url: `/auth/forgot-password`,
+          method: "POST",
+          body: content,
+        };
+      },
+    }),
+
+    // reset password
+    resetPassword: builder.mutation({
+      query: ({ user, token, content }) => {
+        return {
+          url: `/auth/reset-password/${user}/${token}`,
+          method: "PATCH",
+          body: content,
+        };
+      },
+    }),
   }),
 });
 
@@ -68,4 +90,6 @@ export const {
   useGetUserByRoleQuery,
   useDeleteUserByRoleAndIdMutation,
   useChangePasswordMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApi;

@@ -1,4 +1,6 @@
 // public routes
+import FortgotPassword from "../views/pages/forgotPassword/FortgotPassword";
+import ResetPassword from "../views/pages/forgotPassword/ResetPassword";
 import Home from "../views/pages/home/Home";
 import Login from "../views/pages/login/Login";
 import Signup from "../views/pages/signup/Signup";
@@ -27,6 +29,16 @@ export const routes = [
   {
     path: "/login",
     element: Login,
+    role: ["*"],
+  },
+  {
+    path: "/forgot-password",
+    element: FortgotPassword,
+    role: ["*"],
+  },
+  {
+    path: "/password-reset/:user/:token",
+    element: ResetPassword,
     role: ["*"],
   },
   {

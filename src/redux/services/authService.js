@@ -49,6 +49,17 @@ export const authApi = createApi({
       invalidatesTags: ["User"],
     }),
 
+    // upload profile picture
+    uploadProfile: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/auth/upload-profile",
+          method: "PATCH",
+          body: body,
+        };
+      },
+    }),
+
     // password change
     changePassword: builder.mutation({
       query: (content) => {
@@ -89,6 +100,7 @@ export const {
   useCreateUserMutation,
   useGetUserByRoleQuery,
   useDeleteUserByRoleAndIdMutation,
+  useUploadProfileMutation,
   useChangePasswordMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,

@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Image from "../common/Image";
 
@@ -9,7 +8,7 @@ const Header = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  const { user } = useSelector((state) => state.auth);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="fixed shadow-md bg-white text-gray-900 w-full flex items-center justify-between h-14 z-10">

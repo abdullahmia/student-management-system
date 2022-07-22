@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditProfileForm from "../../components/forms/EditProfileForm";
+import EditProfileForm from "../../components/forms/EditTeacherProfileForm";
 import PasswordChangeForm from "../../components/forms/PasswordChangeForm";
 import DashboardLayout from "../layout/DashboardLayout";
 

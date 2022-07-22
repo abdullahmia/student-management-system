@@ -1,16 +1,55 @@
 import { Dialog, Transition } from "@headlessui/react";
+import cogoToast from "cogo-toast";
 import { Fragment, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { BiLoaderAlt } from "react-icons/bi";
+import { cities } from "../../../data/data";
+import { useCreateUserMutation } from "../../../redux/services/authService";
+import { useGetDepartmentsQuery } from "../../../redux/services/deapartmentService";
 
 export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
   const cancelButtonRef = useRef(null);
   const { register, handleSubmit, reset } = useForm();
 
+  const { data: departments } = useGetDepartmentsQuery();
+
+  // create user mution
+  const [createUser, { isLoading }] = useCreateUserMutation();
+
   // add user form submit
   const addUserFormSubmit = async (data) => {
-    let type = "student";
-    console.log(data, type);
-    reset();
+    let role = "student";
+
+    // createing form Data
+    const formdata = new FormData();
+    formdata.append("firstName", data.firstName);
+    formdata.append("lastName", data.lastName);
+    formdata.append("email", data.email);
+    formdata.append("number", data.number);
+    formdata.append("country", data.country);
+    formdata.append("city", data.city);
+    formdata.append("address", data.address);
+    formdata.append("dateOfBirth", data.dateOfBirth);
+    formdata.append("religion", data.religion);
+    formdata.append("image", data.image[0]);
+    formdata.append("role", role);
+    formdata.append("semester", data.semester);
+    formdata.append("department", data.department);
+    formdata.append("session", data.session);
+    formdata.append("roll", data.roll);
+    formdata.append("registation", data.registation);
+
+    await createUser(formdata).then((result) => {
+      if (result.data) {
+        cogoToast.success(result.data.message);
+        // reset();
+        setIsFormOpen(!isFormOpen);
+      } else if (result.error) {
+        cogoToast.error(result.error.data.message);
+      }
+    });
+
+    // reset();
   };
   return (
     <Transition.Root show={isFormOpen} as={Fragment}>
@@ -86,7 +125,6 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                     <form
                       onSubmit={handleSubmit(addUserFormSubmit)}
                       className="space-y-6"
-                      action="#"
                     >
                       <div>
                         <label
@@ -116,7 +154,7 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                           type="text"
                           name="lname"
                           id="lname"
-                          {...register("lasstName")}
+                          {...register("lastName")}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
                           placeholder="Doe"
                           required
@@ -151,7 +189,7 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                           type="number"
                           name="roll"
                           id="roll"
-                          {...register("email")}
+                          {...register("roll")}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
                           placeholder="149161"
                           required
@@ -169,9 +207,9 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                           type="number"
                           name="reg"
                           id="reg"
-                          {...register("email")}
+                          {...register("registation")}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
-                          placeholder="1500955039"
+                          placeholder="146515610518615"
                           required
                         />
                       </div>
@@ -183,7 +221,10 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                         >
                           Semester
                         </label>
-                        <select className="bg-gray-50 border py-2 px-2 w-full focus:outline-none focus:border focus:border-blue-500">
+                        <select
+                          {...register("semester")}
+                          className="bg-gray-50 border py-2 px-2 w-full focus:outline-none focus:border focus:border-blue-500"
+                        >
                           <option value="1">1st</option>
                           <option value="2">2nd</option>
                           <option value="3">3rd</option>
@@ -203,20 +244,204 @@ export default function AddStudentForm({ isFormOpen, setIsFormOpen, type }) {
                           Department
                         </label>
                         <select
+                          {...register("department")}
                           id="department"
                           className="border bg-gray-50 py-2 px-2 w-full focus:outline-none focus:border focus:border-blue-500"
                         >
-                          <option value="computer">Computer</option>
-                          <option value="civil">Civil</option>
-                          <option value="technical">Technical</option>
+                          {departments?.data?.map((department, key) => (
+                            <option key={key} value={department?._id}>
+                              {department?.name}
+                            </option>
+                          ))}
                         </select>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="semester"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Semester
+                        </label>
+                        <select
+                          {...register("session")}
+                          className="bg-gray-50 border py-2 px-2 w-full focus:outline-none focus:border focus:border-blue-500"
+                        >
+                          <option value="2017 - 2018">2017 - 2018</option>
+                          <option value="2018 - 2019">2018 - 2019</option>
+                          <option value="2019 - 2020">2019 - 2020</option>
+                          <option value="2020 - 2021">2020 - 2021</option>
+                          <option value="2021 - 2022">2021 - 2022</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="number"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Contact Number
+                        </label>
+                        <input
+                          type="number"
+                          name="number"
+                          id="email"
+                          {...register("number")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="0170000000"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="number"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Gurdian Name
+                        </label>
+                        <input
+                          type="text"
+                          name="number"
+                          id="email"
+                          {...register("gurdianName")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="0170000000"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="number"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Gurdian Number
+                        </label>
+                        <input
+                          type="number"
+                          name="number"
+                          id="email"
+                          {...register("gurdianPhone")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="0170000000"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="country"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Country
+                        </label>
+                        <input
+                          type="text"
+                          name="country"
+                          id="email"
+                          {...register("country")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Bangladesh"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="city"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          City
+                        </label>
+                        <select
+                          {...register("city")}
+                          className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          aria-label="Default select example"
+                        >
+                          {cities.map((city, key) => (
+                            <option value={city.name} key={key}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="address"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Address
+                        </label>
+                        <textarea
+                          type="text"
+                          name="address"
+                          id="address"
+                          {...register("address")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Address"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="dob"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Date of birth
+                        </label>
+                        <input
+                          type="date"
+                          name="dob"
+                          id="dob"
+                          {...register("dateOfBirth")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Dath of birth"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="religion"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Religion
+                        </label>
+                        <input
+                          type="text"
+                          name="religion"
+                          id="religion"
+                          {...register("religion")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Religion"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          class="block mb-2 text-sm font-medium text-gray-900 "
+                          for="file_input"
+                        >
+                          Image
+                        </label>
+                        <input
+                          {...register("image")}
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5 "
+                          id="file_input"
+                          type="file"
+                          required
+                        ></input>
                       </div>
 
                       <button
                         type="submit"
                         className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center uppercase"
                       >
-                        add
+                        {isLoading ? (
+                          <BiLoaderAlt className="inline w-4 h-4 mr-3 text-white animate-spin" />
+                        ) : (
+                          "Add"
+                        )}
                       </button>
                     </form>
                   </div>

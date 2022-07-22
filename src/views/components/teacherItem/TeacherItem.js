@@ -50,9 +50,7 @@ const TeacherItem = ({ teacher }) => {
           <h2 className="capitalize">
             {teacher?.firstName} {teacher?.lastName}
           </h2>
-          <p className="capitalize text-gray-600 text-sm">
-            {teacher?.email.toLowerCase()}
-          </p>
+          <p className="capitalize text-gray-600 text-sm">{teacher?.email}</p>
         </div>
       </div>
       <div className="flex gap-3 items-center">

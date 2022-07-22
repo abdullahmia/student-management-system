@@ -163,7 +163,7 @@ export default function AddDepartmentForm({ isFormOpen, setIsFormOpen }) {
 
                       <div class="flex justify-center items-center w-full">
                         <label
-                          for="dropzone-file"
+                          htmlFor="dropzone-file"
                           class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100"
                         >
                           <div class="flex flex-col justify-center items-center pt-5 pb-6">

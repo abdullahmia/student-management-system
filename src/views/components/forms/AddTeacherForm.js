@@ -1,8 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import cogoToast from "cogo-toast";
+// import cogoToast from "cogo-toast";
 import { Fragment, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { BiLoaderAlt } from "react-icons/bi";
+import { cities } from "../../../data/data";
 import { useCreateUserMutation } from "../../../redux/services/authService";
 
 export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
@@ -15,8 +17,20 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
   // add user form submit
   const addUserFormSubmit = async (data) => {
     let role = "teacher";
-    data = { ...data, role };
-    await createUser(data).then((result) => {
+    const formdata = new FormData();
+    formdata.append("firstName", data.firstName);
+    formdata.append("lastName", data.lastName);
+    formdata.append("email", data.email);
+    formdata.append("number", data.number);
+    formdata.append("country", data.country);
+    formdata.append("city", data.city);
+    formdata.append("address", data.address);
+    formdata.append("dateOfBirth", data.dateOfBirth);
+    formdata.append("religion", data.religion);
+    formdata.append("image", data.image[0]);
+    formdata.append("role", role);
+
+    await createUser(formdata).then((result) => {
       if (result.data) {
         cogoToast.success(result.data.message);
         reset();
@@ -152,6 +166,129 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
                           placeholder="name@company.com"
                           required
                         />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="number"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Contact Number
+                        </label>
+                        <input
+                          type="number"
+                          name="number"
+                          id="email"
+                          {...register("number")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="0170000000"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="country"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Country
+                        </label>
+                        <input
+                          type="text"
+                          name="country"
+                          id="email"
+                          {...register("country")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Bangladesh"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="city"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          City
+                        </label>
+                        <select
+                          {...register("city")}
+                          className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          aria-label="Default select example"
+                        >
+                          {cities.map((city, key) => (
+                            <option value={city.name} key={key}>
+                              {city.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="address"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Address
+                        </label>
+                        <textarea
+                          type="text"
+                          name="address"
+                          id="address"
+                          {...register("address")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Address"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="dob"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Date of birth
+                        </label>
+                        <input
+                          type="date"
+                          name="dob"
+                          id="dob"
+                          {...register("dateOfBirth")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Dath of birth"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="religion"
+                          className="block mb-2 text-sm font-medium text-gray-900"
+                        >
+                          Religion
+                        </label>
+                        <input
+                          type="text"
+                          name="religion"
+                          id="religion"
+                          {...register("religion")}
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
+                          placeholder="Religion"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          class="block mb-2 text-sm font-medium text-gray-900 "
+                          for="file_input"
+                        >
+                          Image
+                        </label>
+                        <input
+                          {...register("image")}
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5 "
+                          id="file_input"
+                          type="file"
+                          required
+                        ></input>
                       </div>
 
                       <button

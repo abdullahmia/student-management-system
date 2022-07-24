@@ -2,6 +2,7 @@ import jwt_decode from "jwt-decode";
 import { BiNotification } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
+import StudentSidebar from "./StudentSidebar";
 import TeacherSidebar from "./TeacherSidebar";
 
 const Sidebar = () => {
@@ -18,6 +19,8 @@ const Sidebar = () => {
         <ul className="flex flex-col py-4 space-y-1">
           {decodedToken.role === "teacher" ? (
             <TeacherSidebar />
+          ) : decodedToken.role === "student" ? (
+            <StudentSidebar />
           ) : (
             <AdminSidebar />
           )}

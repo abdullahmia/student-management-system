@@ -5,8 +5,7 @@ import Image from "../common/Image";
 
 const TeacherItem = ({ teacher }) => {
   // delete teacher
-  const [deleteUserByRoleAndId, { isLoading }] =
-    useDeleteUserByRoleAndIdMutation();
+  const [deleteUserByRoleAndId] = useDeleteUserByRoleAndIdMutation();
 
   const deleteTeacher = async (id) => {
     swal({
@@ -17,9 +16,8 @@ const TeacherItem = ({ teacher }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        console.log(id, teacher?.role);
         deleteUserByRoleAndId({
-          role: teacher?.role,
+          role: teacher?.user?.role,
           id,
         }).then((result) => {
           if (result?.data) {
@@ -42,15 +40,17 @@ const TeacherItem = ({ teacher }) => {
       <div className="flex gap-3 items-center">
         <div>
           <Image
-            src={teacher?.image}
+            src={teacher?.user?.image}
             classname="w-7 h-7 md:w-10 md:h-10 mr-2 rounded-md overflow-hidden"
           />
         </div>
         <div>
           <h2 className="capitalize">
-            {teacher?.firstName} {teacher?.lastName}
+            {teacher?.user?.firstName} {teacher?.user?.lastName}
           </h2>
-          <p className="capitalize text-gray-600 text-sm">{teacher?.email}</p>
+          <p className="capitalize text-gray-600 text-sm">
+            {teacher?.user?.email}
+          </p>
         </div>
       </div>
       <div className="flex gap-3 items-center">
@@ -61,7 +61,7 @@ const TeacherItem = ({ teacher }) => {
           <FiEdit />
         </button>
         <button
-          onClick={() => deleteTeacher(teacher?._id)}
+          onClick={() => deleteTeacher(teacher?.user?._id)}
           className="capitalize bg-red-500 text-white px-4 py-3 rounded flex items-center gap-2"
         >
           <FiTrash />

@@ -10,7 +10,6 @@ const TeacherProfile = () => {
   const user = getUser();
   const { isLoading, data } = useGetTeacherProfileQuery(user._id);
   let teacher = data?.data?.data;
-  console.log(teacher?.user?.role);
   return (
     <DashboardLayout title={"Teacher Profile"}>
       {isLoading ? (

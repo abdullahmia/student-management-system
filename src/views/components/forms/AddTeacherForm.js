@@ -191,15 +191,16 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
                         >
                           Country
                         </label>
-                        <input
-                          type="text"
-                          name="country"
-                          id="email"
+                        <select
                           {...register("country")}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
-                          placeholder="Bangladesh"
+                          className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          aria-label="Country"
                           required
-                        />
+                        >
+                          <option value="bangladesh" selected>
+                            Bangladesh
+                          </option>
+                        </select>
                       </div>
 
                       <div>
@@ -264,15 +265,19 @@ export default function UserForm({ isFormOpen, setIsFormOpen, type }) {
                         >
                           Religion
                         </label>
-                        <input
-                          type="text"
-                          name="religion"
-                          id="religion"
+                        <select
                           {...register("religion")}
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:border-blue-600 focus:outline-none block w-full p-2.5"
-                          placeholder="Religion"
+                          className="form-select appearance-none block w-full px-3 py-1.5 text font text-gray-700 bg-gray-50 bg-clip-padding bg-no-repeat border border- border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          aria-label="religion"
                           required
-                        />
+                        >
+                          <option value="islam" selected>
+                            Islam
+                          </option>
+                          <option value="hindu" selected>
+                            Hindu
+                          </option>
+                        </select>
                       </div>
 
                       <div>

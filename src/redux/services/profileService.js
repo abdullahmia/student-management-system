@@ -14,7 +14,11 @@ export const profileApi = createApi({
     getTeacherProfile: builder.query({
       query: (id) => `/user/teacher/${id}`,
     }),
+    getStudentProfile: builder.query({
+      query: (id) => `/user/student/${id}`,
+    }),
   }),
 });
 
-export const { useGetTeacherProfileQuery } = profileApi;
+export const { useGetTeacherProfileQuery, useGetStudentProfileQuery } =
+  profileApi;

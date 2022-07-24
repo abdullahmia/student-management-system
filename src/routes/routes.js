@@ -16,6 +16,10 @@ import Teachers from "../views/pages/admin/teacher/Teachers";
 import TeacherProfile from "../views/pages/profile/TeacherProfile";
 import TeacherDashboard from "../views/pages/teacher/TeacherDashboard";
 
+// Student Routes
+import StudentProfile from "../views/pages/profile/StudentProfile";
+import StudentDashboard from "../views/pages/student/StudentDashboard";
+
 // auth routes
 import Notice from "../views/pages/notice/Notice";
 import Profile from "../views/pages/profile/Profile";
@@ -84,6 +88,21 @@ export const routes = [
       {
         path: "profile",
         element: TeacherProfile,
+      },
+    ],
+  },
+  {
+    path: "/student",
+    role: ["student"],
+    element: StudentDashboard,
+    children: [
+      {
+        path: "/",
+        element: StudentDashboard,
+      },
+      {
+        path: "profile",
+        element: StudentProfile,
       },
     ],
   },
